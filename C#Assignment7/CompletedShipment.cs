@@ -39,5 +39,10 @@ namespace C_Assignment07
             Console.WriteLine($"Estimated Cost: {EstimatedCost}");
             Console.WriteLine("------------------------------");
         }
+
+        public override string GetTrackingStatus()
+        {
+            return $"Shipment {TrackingCodeProperty} has been Delivered.";
+        }
     }
 }

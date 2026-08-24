@@ -1,18 +1,27 @@
 ﻿using C_Assignment06;
 
-public abstract class Shipment
+public abstract partial class Shipment
 {
     private string TrackingCode;
     private string Description;
     private decimal Weight;
     private decimal DeliveryFee;
 
+    public static int TotalShipmentsCreated = 0;
+
+
+    static Shipment()
+    {
+        TotalShipmentsCreated = 0;
+        Console.WriteLine("Shipment System Initialized");
+    }
+
     public Shipment(
-        string trackingCode,
-        string description,
-        decimal weight,
-        decimal deliveryFee,
-        DeliveryAddress destination)
+     string trackingCode,
+     string description,
+     decimal weight,
+     decimal deliveryFee,
+     DeliveryAddress destination)
     {
         TrackingCode = "";
         Description = "";
@@ -24,6 +33,8 @@ public abstract class Shipment
         DescriptionProperty = description;
         WeightProperty = weight;
         DeliveryFeeProperty = deliveryFee;
+
+        TotalShipmentsCreated++;
     }
 
     public Shipment(string trackingCode)
@@ -45,6 +56,8 @@ public abstract class Shipment
         {
             TrackingCode = "Unknown";
         }
+
+        TotalShipmentsCreated++;
     }
 
     public string TrackingCodeProperty
@@ -126,4 +139,34 @@ public abstract class Shipment
             WeightProperty = newWeight + extraPackingWeight;
         }
     }
+
+    public Shipment CopyShipment()
+    {
+        return (Shipment)this.MemberwiseClone();
+    }
+    public Shipment ShallowCopy()
+    {
+        return (Shipment)this.MemberwiseClone();
+    }
+
+    public Shipment DeepCopy()
+    {
+        Shipment copy = (Shipment)this.MemberwiseClone();
+
+        copy.Destination = new DeliveryAddress(
+            this.Destination.city,
+            this.Destination.Street,
+            this.Destination.BuildingNumber
+        );
+
+        return copy;
+    }
+
+    public static int GetTotalShipmentsCreated()
+    {
+        return TotalShipmentsCreated;
+    }
+
+
+    public abstract string GetTrackingStatus();
 }

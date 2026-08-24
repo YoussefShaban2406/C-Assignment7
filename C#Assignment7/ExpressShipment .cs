@@ -58,7 +58,7 @@ public class ExpressShipment : Shipment, ITrackable, IInsurable
         Console.WriteLine("----------------------------");
     }
 
-    public string GetTrackingStatus()
+    public override string GetTrackingStatus()
     {
         return $"Shipment {TrackingCodeProperty} is Out for Delivery.";
     }

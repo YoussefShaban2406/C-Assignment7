@@ -9,26 +9,90 @@ namespace C_Assignment06
         {
             //Part 01:
             //Question 1
-            // A) Abstraction means hiding unnecessary implementation details and showing only the essential features of an object.
-            // B) because it helps:
-            //      Reduce complexity by hiding unnecessary details.
-            //      Improve code organization by separating what an object does from how it does it.
-            //      Improve security by preventing direct access to internal implementation.
-            //      Make code easier to maintain and extend
+            // A) the refernce is copied not the actual object.
+            // B) Assigning one object variable to another does not create a new object.
+            // C) Copying a reference: Both variables point to the same object Copying an object: A new, separate object is created with the same data(usually called a deep / shallow copy depending on how the copying is performed).
 
             //Question 2
-            // A) Abstract Class can have both abstract and non-abstract members, while an interface can only have abstract members. Abstract classes can provide default implementations for some methods, while interfaces cannot. A class can inherit from only one abstract class, but it can implement multiple interfaces.
-            // B) Choose an interface when you want to define a common capability or contract that different, potentially unrelated classes can implement.
-            // C) class cannot inherit from multiple classes, whether they are abstract or not.
+            // A) Shallow Copy creates a new object, but it copies the values of the original object's members as they are. For reference-type members, it copies the reference, not the actual object being referenced.
+            // B) A Deep Copy creates a completely independent copy of the object, including copies of the objects referenced by its reference-type members.
+            // C) The reference itself is copied, so both the original and copied object point to the same referenced object
+            // D) New copies of the referenced objects are created. Therefore, the original and copied objects have separate reference type members
+            // E) Deep Copy would be safer when you need to modify a copied object without affecting the original. For example, if you copy a customer's order and want to change the copied order for testing or editing, a Deep Copy ensures that changes to the copy don't accidentally modify the original order.
+
+            //Question 3
+            // A)A static field belongs to the class itself, not to a specific object. There is only one shared copy of a static field for the entire class.An instance field belongs to a specific object, so every object has its own separate copy of that field.
+            // B) A static method belongs to the class rather than to a specific object. It can be called without creating an object of the class. A static method cannot directly access instance members because instance members belong to a particular object. It can directly access other static members.
+            // C) A static constructor is used to initialize static data or perform setup that should happen only once for the class. It is executed automatically once, before the class is first used, and you cannot call it directly.
+            // D) A static class is a class that contains only static members and is designed to be used without creating objects. No, you cannot create an object from a static class. It is accessed directly through the class name.
+
+            //Question 4
+            // A) An Extension Method is a method that allows you to add new functionality to an existing class or type without modifying its original source code or creating a derived class. It makes the new method appear as if it were already part of that type.
+            // B) The this keyword must be used before the first parameter. This tells C# which type the extension method is extending.
+            // C) An extension method must be declared inside a static class.
+            // D) An extension method cannot directly access the private members of the class it extends. It can only access members that are accessible to it, such as public members.
+
+            //Question 5
+            // A) A Partial Class is a class that can be split into multiple files. Even though the code is separated, C# treats all the parts as one class when the program is compiled.
+            // B) to organize a large amount of code.
+            // C) A Partial Method is a method that can be declared in one part of a partial class and implemented in another part of the same class. It is useful when a developer wants to provide an optional method that can be implemented only when needed.
+            // D) If a partial method is allowed to have no implementation, the compiler removes the method declaration and any calls to it during compilation. This means it does not cause an error and has no effect on the final program.
+
 
             //Part 02:
-            Driver driver = new Driver(
-    1,
-    "Ahmed Ali",
-    "01012345678"
-);
+
+            //01
+            //Shipment shipment1 = standardShipment;
+
+            //Shipment shipment2 = shipment1;
+
+            //Shipment shipment3 = shipment1.CopyShipment();
+
+            //Console.WriteLine(shipment1 == shipment2);
+            //Console.WriteLine(shipment1 == shipment3);
+
+            //02
+            //Shipment originalShipment = standardShipment;
+
+            //Shipment copiedShipment = originalShipment.ShallowCopy();
+
+            //Console.WriteLine(originalShipment == copiedShipment);
+            //Console.WriteLine(
+            //    originalShipment.Destination == copiedShipment.Destination
+            //);
+
+            //copiedShipment.Destination.Street = "New Street";
+
+            //Console.WriteLine($"Original Street: {originalShipment.Destination.Street}");
+            //Console.WriteLine($"Copied Street  : {copiedShipment.Destination.Street}");
+
+            //03
+            //Shipment originalShipment = standardShipment;
+
+            //Shipment copiedShipment = originalShipment.DeepCopy();
+
+            //Console.WriteLine("Before change");
+            //Console.WriteLine($"Original: {originalShipment.Destination.city}");
+            //Console.WriteLine($"Copied  : {copiedShipment.Destination.city}");
+
+            //copiedShipment.Destination.city = "Giza";
+
+            //Console.WriteLine();
+
+            //Console.WriteLine("After changing copied address");
+            //Console.WriteLine($"Original: {originalShipment.Destination.city}");
+            //Console.WriteLine($"Copied  : {copiedShipment.Destination.city}");
+
+            //Console.WriteLine();
+
+            //Console.WriteLine($"Same DeliveryAddress object? {originalShipment.Destination == copiedShipment.Destination}");
+
+            Driver driver = new Driver(1,"Ahmed Ali", "01012345678");
 
             string centerName;
+            DeliveryUtilities.PrintSeparator();
+            DeliveryUtilities.PrintSystemTitle();
+            DeliveryUtilities.PrintSeparator();
 
             do
             {
@@ -333,7 +397,11 @@ namespace C_Assignment06
                 );
             }
 
+
+            Console.WriteLine($"Total Shipments Created: {Shipment.TotalShipmentsCreated}");
+            Console.WriteLine($"Total Shipments Created : {Shipment.GetTotalShipmentsCreated()}");
         }
 
     }
+
     }
